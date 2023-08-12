@@ -1,0 +1,38 @@
+create table numberdemo(
+slno number(5),
+mrp number(6,2));
+
+
+insert into numberdemo values(1,123.45);
+insert into numberdemo values(12345,123.45);
+
+insert into numberdemo values(123456,123.45); // Error
+insert into numberdemo values(12345,1234.45);
+insert into numberdemo values(12345,12345.45); // Error
+insert into numberdemo values(12345,1234.45678);
+insert into numberdemo values(12345,1234.45178);
+
+
+create table chardemo(
+col1 char(5),
+col2 varchar2(5),
+col3 varchar2(5));
+
+Note: All String values should be enclosed in single quotes
+
+insert into chardemo values('A','A','A');
+insert into chardemo values('ABCDEF','A','A'); // ERROR
+insert into chardemo values('A','ABCDEF','A'); // ERROR
+
+
+Date --> MM/DD/YY
+TimeStamp --> MM/DD/YY HH:MM:SS
+
+create table datedemo(
+col1 date,
+col2 timestamp);
+
+Note: All Date and Timestamp values should be enclosed in single quotes
+
+insert into datedemo values(CURRENT_DATE,CURRENT_TIMESTAMP);
+insert into datedemo values('08-Aug-23',null);

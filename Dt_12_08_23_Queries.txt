@@ -1,0 +1,63 @@
+create table schoolstudent(
+htno number(5) primary key,
+name varchar2(10) not null,
+doj date,
+m1 number(3) check(m1>0),
+m2 number(3) check(m2>0 and m2<100),
+total number(5),
+aver number(4),
+result varchar2(5)
+);
+
+insert into schoolstudent values(1,'S1','01-Aug-23',99,99,198,99,'pass');
+
+insert into schoolstudent(htno,name,doj,m1,m2) values(2,'S2','01-Aug-23',99,99);
+
+
+insert into schoolstudent(name,htno,m1,doj,m2) values('S3',3,99,'02-June-23',99);
+
+Insert statement in an interactive version
+
+insert into schoolstudent(name,htno,m1,doj,m2) 
+values('&name',&htno,&m1,'&doj',&m2);
+
+
+
+SQL Query to update the total and average of every sudent in the table
+
+Syntax:
+
+UPDATE table-name SET column-1=value-1,column-2=value2,..... [WHERE row-selction-criteria]
+
+update schoolstudent set total=m1+m2,aver=(m1+m2)/2;
+
+SQL Query to update the result as pass for all those students whose m1 and m2 marks are > 35 
+
+update schoolstudent set result='pass' where m1>35 AND m2>35;
+
+update schoolstudent set result='fail' where m1<35 OR m2<35;
+
+OR
+
+update schoolstudent set result='fail' where result is null;
+
+
+remove the failed students data from schoolstudent table
+
+DELETE FROM table-name WHERE row-selection-criteria
+
+delete from schoolstudent where result like 'fail'
+
+remove all the students information from schoolstudent table
+
+delete from schoolstudent;
+
+
+Truncate Query
+is used to remove all the rows from the table permenently.
+
+Syntax: TRUNCATE TABLE table-name
+
+Syntax for DROP:
+
+DROP TABLE table-name

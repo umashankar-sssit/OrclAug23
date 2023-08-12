@@ -1,0 +1,50 @@
+create table checkdemo(
+htno number(5),
+marks number(5),
+branch varchar2(5),
+mfd date,
+expiryd date,
+constraint chkd_htno_chk check(htno>0),
+constraint chkd_marks_chk check(marks>0 AND marks<=100),
+constraint chkd_brnch_chk check(branch IN ('ECE','CSE','IT')),
+constraint chkd_ed_chk check(expiryd>mfd));
+
+Correct :
+insert into checkdemo values(1,98,'ECE','01-Aug-23','10-Aug-23');
+
+Errors:
+insert into checkdemo values(-1,98,'ECE','01-Aug-23','10-Aug-23');
+insert into checkdemo values(1,980,'ECE','01-Aug-23','10-Aug-23');
+insert into checkdemo values(1,98,'EEE','01-Aug-23','10-Aug-23');
+insert into checkdemo values(1,98,'ece','01-Aug-23','10-Aug-23');
+insert into checkdemo values(1,98,'ECE','01-Aug-23','10-June-23');
+
+
+
+
+
+create table course(
+cid number(5) primary key,
+cname varchar2(10) not null,
+fees number(6,2),
+duration number(4) check(duration>0)
+);
+
+insert into course values(1,'C',1000,10);
+insert into course values(2,'CPP',2000,20);
+insert into course values(3,'Java',3000,30);
+insert into course values(4,'Oracle',4000,40);
+
+
+
+create table student(
+htno number(5) primary key,
+sname varchar2(10),
+courseid number(5),
+constraint stud_cid_fk_crs_cid foreign key(courseid) references course(cid));
+
+
+insert into student values(101,'S1',3);
+
+Error
+insert into student values(102,'S1',30);

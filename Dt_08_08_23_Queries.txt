@@ -1,0 +1,12 @@
+CREATE TABLE login(
+  username varchar2(10),
+  passwd varchar2(10)
+);
+
+
+insert into login values('user1','pass1');
+
+
+insert into login values('pass2','user2');
+
+
