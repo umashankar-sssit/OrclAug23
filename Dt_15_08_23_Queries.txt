@@ -1,0 +1,45 @@
+Q) SQL Query to retreive the list of countries 
+select distinct country from customers;
+
+Q) SQL to retreive the customer_id and county from customers
+select customer_id,country from customers;
+
+Q) SQL to retreive customer_id, firstname, lastname, billamount from customers.
+
+select customer_id,first_name,last_name, bill_amount from customers;
+
+Q) SQL to retreive the first name and last name as Customer name from customers table
+select first_name ||' '||last_name AS customer_name from customers;
+
+-- OR --
+select first_name ||' '||last_name  "customer_name" from customers;
+
+-- OR ---
+select first_name ||' '||last_name  customer_name from customers;
+
+Aggregate functions
+1. sum() --> add  the values of every row present in the              column
+2. avg() --> average value of  the column
+3. max()
+4. min()
+5. count()
+
+Q) SQL Query to find the total bill amout paid by all customers
+select sum(bill_amount) "Total sales" from customers;
+
+Q) SQL Query to find the number of customers who paid the bill
+ select count(bill_amount) from customers;
+
+count(bill_amount) considers or counts all the rows that contains not null value in the column called bill_amount
+
+-----------
+
+Q) SQL Query to find the name of the customer whose customer_id is 1
+select first_name || ' ' || last_name from customers where customer_id=1;
+
+Q) SQL Query to retreive the list of customers who are staying in India
+
+select first_name || ' ' || last_name from customers where country like 'INDIA'
+
+
+

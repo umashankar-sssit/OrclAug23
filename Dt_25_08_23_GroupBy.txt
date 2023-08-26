@@ -1,0 +1,81 @@
+1. SQL Query to retrieve the number of students joined for each course?
+
+select course,count(*) from studentcourse group by course;
+
+2. SQL Query to retrieve the number of students joined for each faculty?
+
+select facultyname,count(*) from studentcourse group by facultyname;
+
+3. SQL Query to retrieve the couse wise number of students who paid the fees?
+
+select course,count(feespaid) from studentcourse group by course;
+
+
+4. SQL Query to retrieve the faculty wise number of students who paid fees?
+
+select facultyname,count(feespaid) from studentcourse group by facultyname;
+
+5. SQL Query to retrieve the faculty wise and course wise number of students who paid fees?
+
+select facultyname,course,count(feespaid) from studentcourse group by facultyname,course;
+
+6. SQL Query to find the below operations on Faculty wise.
+  6.1 : total fees collected
+  6.2 : average fees collected
+  6.3 : Max and min fees collected
+
+Having clause
+-------------
+clause is used to filter the groups
+
+SQL query to retrieve the number of students enrolled for C and Oracle.
+
+select course,count(*) from studentcourse group by course having course IN ('C','Oracle');
+
+select course,count(*) from studentcourse group by course having course NOT LIKE 'Java';
+
+select course,count(*) from studentcourse where course NOT LIKE 'Java' group by course;
+
+SQL Query to retrive the total fees collected from all the students faculty wise
+
+select facultyname,sum(feespaid) from studentcourse group by facultyname having sum(feespaid)>2000
+
+SQL Query to retrive the total fees collected from all the students faculty wise who enrolled for C Course
+
+select facultyname,sum(feespaid) from studentcourse group by facultyname having course like 'C'; // Wrong
+bcz course column is not defined in group by clause
+
+select facultyname,course,sum(feespaid) from studentcourse group by facultyname,course having course like 'C';
+
+
+select facultyname,sum(feespaid) from studentcourse where course like 'C' group by facultyname;
+
+
+Order By
+
+clause is used to arrange the data in either ascending or descending order
+default order is insertion order if order by clause is not used in the sql query
+if order by clause is used in sql query, then it displays the data in ascending order
+in order to get the data in descending order, we have to use order by followed by descending
+
+Q) SQL query to retreive the students infor. course wise in ascending order
+select * from studentcourse order by course;
+
+Q) SQL query to retreive the students infor. course wise in descending order
+select * from studentcourse order by course desc;
+
+Q) SQL Query to retreive the total fees paid for the students who enrolled for C and Oracle in desc
+
+select course,sum(feespaid) from studentcourse group by course having course IN ('C','Oracle') order by course desc;
+
+-- OR --
+
+select course,sum(feespaid) from studentcourse group by course having course IN ('C','Oracle') order by 1 desc;
+
+Q) SQL Query to retreive the total fees paid for the students who enrolled for C and Oracle in fees wise descending order
+
+select course,sum(feespaid) from studentcourse group by course having course IN ('C','Oracle') order by 2 desc;
+
+
+
+

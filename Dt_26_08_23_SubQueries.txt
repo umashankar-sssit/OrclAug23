@@ -1,0 +1,26 @@
+Q) SQL query to get the reporing manager name of Clerk1
+
+With out SubQueies or Nested Queries
+-----------------------------------
+
+Step 1: find the reporting manager id of Clerk1
+select mgrid from employee where empname like 'Clerk1';
+
+Result: 101
+
+Step 2: find the employee name whose empid is 101
+
+select empname from employee where empid=101;
+
+Using Sub Queries or Nested Queries
+-----------------------------------
+select empname from employee where empid=(select mgrid from employee where empname like 'Clerk1');
+
+
+Q) SQL query to retrieve the list of employees working in accounts department.
+
+select * from employee where deptid=(select deptid from department where deptname like 'accounts');
+
+Q) SQL Query to retreive the number of employees working in each department
+
+select (select deptname from department where department.deptid=employee.deptid) "Dept Name",count(*) from employee group by deptid;

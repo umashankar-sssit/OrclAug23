@@ -1,0 +1,57 @@
+adding fees column to the student table
+alter table student add fees number(5);
+
+Adding phnum and duration to the student table
+alter table student add(phnum number(5), duration number(3));
+
+Modify the existing column
+
+change the datatype of phnum from number to varchar2
+alter table student modify phnum varchar2(10);
+
+change the size of the phnum from 10 to 5
+alter table student modify phnum varchar2(5);
+
+Note:
+In order to decrease the size of the column, that column should be empty (No rows are available).
+if we trying to decrease the size of column with some existed data, then Oracle gives an error message.
+
+alter table student modify htno number(8);
+alter table student modify htno number(2);
+alter table student modify htno number(5);
+
+remove htno column- which is non-empty from student table
+alter table student drop column htno;
+
+
+modify the name of the phnum to contact
+alter table student rename column phnum to contact;
+
+
+constraints
+1. add constraint
+2. drop constraint
+3. enable/disable
+
+Add a primary key constraint to sname
+alter table student add constraint stud_sname_pk primary key(sname);
+
+
+disable the primary key
+alter table student disable constraint stud_sname_pk;
+
+
+enable the primary key
+alter table student enable constraint stud_sname_pk;
+
+
+drop primary key constraint
+alter table student drop constraint stud_sname_pk;
+
+
+
+
+Data Retrieval Language
+1. Select
+  
+   used to fetch the data from one or more tables
