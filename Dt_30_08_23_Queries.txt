@@ -1,0 +1,62 @@
+Joins
+
+used to combine two or more tables in to get the required data.
+
+SQL Query to retreive the below information of every employee:
+empid
+empname
+deptid
+deptname
+
+select e.empid,e.empname,e.deptid,d.deptname from employee e join department d on d.deptid=e.deptid;
+
+SQL Query to retreive the below information of every employee:
+empid
+empname
+deptname
+bname
+
+select e.empid,e.empname,d.deptname,b.bname from employee e join department d on d.deptid=e.deptid
+join branch b on e.bid=b.bid;
+
+Types of Joins
+--------------
+1. Equi Join or Inner Join
+2. Outer Join
+      2.1 : Left Outer Join
+      2.2 : Right outer join
+      2.3 : Full Join
+3. Self Join
+
+the above examples falls under Equi join
+SQL is returning the matched data between both the tables
+
+Left Outer Join
+---------------
+select e.empid,e.empname,e.deptid,d.deptname from employee e left join department d on d.deptid=e.deptid;
+
+-- OR ---
+
+select e.empid,e.empname,e.deptid,d.deptname from employee e join department d on d.deptid(+)=e.deptid;
+
+Three Tables
+
+select e.empid,e.empname,d.deptname,b.bname from employee e left join department d on d.deptid=e.deptid
+left join branch b on e.bid=b.bid;
+
+Right Outer Join
+---------------
+select e.empid,e.empname,e.deptid,d.deptname from employee e right join department d on d.deptid=e.deptid;
+
+-- OR ---
+
+select e.empid,e.empname,e.deptid,d.deptname from employee e join department d on d.deptid=e.deptid(+);
+
+
+Full Outer Join
+---------------
+select e.empid,e.empname,e.deptid,d.deptname from employee e full join department d on d.deptid=e.deptid;
+
+
+
+

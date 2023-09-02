@@ -1,0 +1,60 @@
+SQL Query to retreive the below information from employee table
+empid
+empname
+manager name
+
+select e1.empid,e1.empname,e2.empname "Manager"  from employee e1 join employee e2 on e1.mgrid=e2.empid;
+
+
+
+apply cross join between employee and department table
+
+select e.empid,e.empname,e.deptid,d.deptname from employee e cross join department d;
+
+================
+Views
+================
+
+SQL> desc schoolstudent;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                      NOT NULL NUMBER(5)
+ NAME                                      NOT NULL VARCHAR2(10)
+ DOJ                                                DATE
+ M1                                                 NUMBER(3)
+ M2                                                 NUMBER(3)
+ TOTAL                                              NUMBER(5)
+ AVER                                               NUMBER(4)
+ RESULT                                             VARCHAR2(5)
+
+Simple view
+
+1. Create a view that contains all the students who are passed.
+
+
+create view passstudents as select htno,name,result from schoolstudent where result like 'pass';
+
+
+Complex view
+2. create a view from employee and department with the below columns
+
+empid
+empname
+deptname
+
+create view empdept as select e.empid,e.empname,d.deptname from employee e join department d on e.deptid=d.deptid;
+
+
+
+Applying Check constraint
+
+create view passstudents1 as select htno,name,result from schoolstudent where result like 'pass' with check option;
+
+
+Applying Read only constraing
+
+create view passstudents2 as select htno,name,result from schoolstudent where result like 'pass' with read only;
+
+
+
+
