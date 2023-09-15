@@ -1,0 +1,68 @@
+create or replace procedure displaywelcome
+is
+begin
+dbms_output.put_line('Welcome...');
+end;
+/
+
+How to run the procedure?
+THREE Ways:
+1. using call keyword
+         call displaywelcome()
+2. using run keyword
+         run displaywelcome;
+3. using PL/SQL block
+         begin
+         displaywelcome();
+         end;
+         /
+
+
+
+
+create or replace procedure addition(num1 number, num2 number, res OUT number)
+is
+begin
+res:=num1+num2;
+end;
+/
+
+
+Running:
+declare
+num1 number(5):=&num1;
+num2 number(5):=&num2;
+res number(5);
+begin
+addition(num1,num2,res);
+dbms_output.put_line('Result is...' || res);
+end;
+/
+
+
+
+create or replace function additionF(num1 number, num2 number) return number
+is
+res number(5);
+begin
+res:=num1+num2;
+return res;
+end;
+/
+
+
+Running:
+declare
+num1 number(5):=&num1;
+num2 number(5):=&num2;
+res number(5);
+begin
+res:=additionF(num1,num2);
+dbms_output.put_line('Result is...' || res);
+end;
+/
+
+
+
+
+

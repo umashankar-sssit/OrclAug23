@@ -1,0 +1,46 @@
+declare
+cursor c1 is select * from employee order by salary 
+desc;
+begin
+for rec in c1 
+loop
+dbms_output.put_line(rec.salary);
+exit when c1%rowcount=5;
+end loop;
+end;
+/
+
+
+
+
+begin
+for rec in (select * from employee order by salary 
+desc) 
+loop
+dbms_output.put_line(rec.salary);
+end loop;
+end;
+/
+
+
+
+
+
+Write a PL/SQL block that accepts the department number and retrieve all the employees who are working in that department
+
+
+declare
+cursor c1(pdeptid number) is select * from employee where deptid=pdeptid;
+pdid employee.deptid%type;
+begin
+pdid:=&pdid;
+
+for rec in c1(pdid)
+loop
+dbms_output.put_line(rec.empid || '  ' || rec.empname);
+end loop;
+end;
+/
+
+
+

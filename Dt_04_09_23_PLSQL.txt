@@ -1,0 +1,20 @@
+begin
+dbms_output.put_line('Hello World');
+end;
+/
+
+
+declare
+num1 number(5);
+num2 number(5);
+result number(5);
+
+begin
+
+num1:=&num1;
+num2:=&num2;
+
+result:=num1+num2;
+dbms_output.put_line('Sum is:' || result);
+end;
+/

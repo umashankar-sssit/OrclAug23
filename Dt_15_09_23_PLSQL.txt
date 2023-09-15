@@ -1,0 +1,44 @@
+ declare
+ a employee%rowtype;
+ begin
+ select * into a from employee where empid=&a;
+ dbms_output.put_line('ename is'||a.empname);
+ dbms_output.put_line('salary is'||a.salary);
+ dbms_output.put_line('department no is'||a.deptid);
+ exception
+ when no_data_found then
+ dbms_output.put_line('Data is not available for given number please enter another number');
+
+ end;
+/
+
+
+declare
+  a number;
+  b varchar2(10);
+  c number;
+  begin
+  select empname,salary into b,c from employee where deptid=&a;
+  dbms_output.put_line(b||' ' ||c);
+exception
+when too_many_rows then
+dbms_output.put_line('It is not posible to fetch more than one row');
+ end;
+/
+
+
+
+declare
+  a employee%rowtype;
+  begin
+  select * into a from employee where deptid=&a;
+  dbms_output.put_line('ename is'||a.empname);
+  dbms_output.put_line('salary is'||a.salary);
+  dbms_output.put_line('department no is'||a.deptid);
+  exception
+  when no_data_found then
+  dbms_output.put_line('Data is not available for given number plese enter another number');
+  When too_many_rows then
+ dbms_output.put_line('It is not posible to fetch more than one row');
+  end;
+/

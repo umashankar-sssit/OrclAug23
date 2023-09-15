@@ -1,0 +1,56 @@
+declare
+value number(5);
+begin
+value:=&value;
+if value mod 2 = 0 then
+dbms_output.put_line(value || ' is even');
+else
+dbms_output.put_line(value || ' is odd');
+end if;
+end;
+/
+
+
+
+
+declare
+username varchar2(10);
+passwd varchar2(10);
+
+begin
+username:='&username';
+passwd:='&passwd';
+
+if username like 'user' then	
+   if passwd like 'pass' then
+     dbms_output.put_line('Valid credentials');
+   else
+     dbms_output.put_line('Invalid password');
+   end if;
+else
+  dbms_output.put_line('Invalid Username');
+end if;
+end;
+/
+
+
+declare
+m1 number(5):=&m1;
+m2 number(5):=&m2;
+average number(5):=0;
+begin
+average:=(m1+m2)/2;
+if m1<35 or m2<35 then
+ dbms_output.put_line('Fail');
+elsif average>=70 then
+     dbms_output.put_line('Distinction'); 
+  elsif average>=60 and average<70 then
+        dbms_output.put_line('First Class');
+    elsif average>=50 and average<60 then
+           dbms_output.put_line('Second class');
+      else
+           dbms_output.put_line('Third class');
+   
+end if;
+end;
+/

@@ -1,0 +1,63 @@
+Write a PL/SQL procedure to insert a record into studentcourse table
+
+create or replace procedure savestudent(
+id in number,name varchar2, 
+course varchar2, feespaid number, 
+facultyname varchar2)
+is
+begin
+insert into studentcourse values(id,name,course,feespaid,facultyname);
+end;
+/
+
+call savestudent(21,'S1','Java',1000,'F2');
+
+create or replace procedure findNameAndCourseById(
+pid number, pname OUT varchar2, pcourse OUT varchar2)
+is
+begin
+select name,course into pname,pcourse from studentcourse where id=pid;
+end;
+/
+
+
+
+declare
+id studentcourse.id%type;
+name studentcourse.name%type;
+course studentcourse.course%type;
+begin
+id:=&id;
+findNameAndCourseById(id,name,course);
+dbms_output.put_line('Name is....' || name);
+dbms_output.put_line('Course is....' || course);
+end;
+/
+
+
+create or replace procedure updatefees(
+pid number, pfees IN OUT number)
+is
+begin
+update studentcourse set feespaid=feespaid+pfees where id=pid;
+select feespaid into pfees from studentcourse where id=pid;
+end;
+/
+
+
+declare
+id studentcourse.id%type;
+feespaid studentcourse.feespaid%type:=&feespaid;
+begin
+id:=&id;
+updatefees(id,feespaid);
+dbms_output.put_line('Updated fees...' || feespaid);
+end;
+/
+
+id studentcourse.id%type;
+name studentcourse.name%type;
+course studentcourse.course%type;
+feespaid studentcourse.feespaid%type;
+facultyname studentcourse.facultyname%type;
+
