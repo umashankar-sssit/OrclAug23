@@ -1,0 +1,54 @@
+
+create table studentT1(
+htno number(5),
+age number(5));
+
+
+create or replace trigger age_difference
+before
+insert or update of age or delete
+on studentT1
+referencing OLD as o New as n
+for each row
+declare
+age_diff number(10);
+begin
+age_diff := :n.age - :o.age;
+dbms_output.put_line('Existed Age is:' || :o.age);
+dbms_output.put_line('Updated Age is:' || :n.age);
+dbms_output.put_line('Difference is:' || age_diff);
+end;
+/
+
+create table studentt1_audit(
+operation varchar2(10),
+existedage number(5),
+updatedage number(5),
+username varchar2(10),
+updatedtime timestamp);
+
+
+
+create or replace trigger age_difference_audit
+before
+insert or update of age or delete
+on studentT1
+referencing OLD as o New as n
+for each row
+declare
+opt varchar2(10);
+begin
+case
+when inserting then
+  opt:='New';
+when updating('age') then
+  opt:='Update';
+when deleting then
+  opt:='Delete';
+end case;
+insert into studentt1_audit values(opt,:o.age,:n.age,'User1',CURRENT_TIMESTAMP);
+end;
+/
+
+
+

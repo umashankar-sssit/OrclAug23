@@ -1,0 +1,161 @@
+create table tblOrders
+(
+  OrderID NUMBER(5),
+  OrderApproval timestamp ,
+  OrderStatus varchar(20)
+)
+
+create table tblOrdersAudit
+(
+  OrderAuditID number(5),
+  OrderID number(5),
+  OrderApproval timestamp,
+  OrderStatus varchar2(20),
+  UpdatedBy varchar2(128),
+  UpdatedOn timestamp
+)
+
+  
+create trigger tblTriggerAuditRecord on tblOrders
+after update, insert
+as
+begin
+  insert into tblOrdersAudit 
+  (OrderID, OrderApprovalDateTime, OrderStatus, UpdatedBy, UpdatedOn )
+  select i.OrderID, i.OrderApprovalDateTime, i.OrderStatus, SUSER_SNAME(), CURRENT_TIMESTAMP 
+  from  tblOrders t 
+  inner join inserted i on t.OrderID=i.OrderID 
+end
+go
+
+insert into tblOrders values (NULL, 'Pending')
+insert into tblOrders values (NULL, 'Pending')
+insert into tblOrders values (NULL, 'Pending')
+go
+
+select * from tblOrders
+select * from tblOrdersAudit
+
+update tblOrders 
+set OrderStatus='Approved', 
+OrderApprovalDateTime=CURRENT_TIMESTAMP  
+where OrderID=1
+go
+
+select * from tblOrders
+select * from tblOrdersAudit order by OrderID, OrderAuditID
+go
+
+update tblOrders 
+set OrderStatus='Approved', 
+OrderApprovalDateTime=CURRENT_TIMESTAMP  
+where OrderID=2
+
+go
+
+select * from tblOrders
+select * from tblOrdersAudit order by OrderID, OrderAuditID
+go
+
+update tblOrders 
+set OrderStatus='Cancelled'
+where OrderID=1
+go
+
+select * from tblOrders
+select * from tblOrdersAudit order by OrderID, OrderAuditID
+go
+
+=====================================
+
+CREATE TABLE student
+(Id number(5) PRIMARY KEY, 
+first_name varchar(50), 
+last_name varchar(50), 
+full_name varchar(50));
+
+create trigger student_name 
+after INSERT 
+on 
+student 
+for each row 
+BEGIN 
+   UPDATE student set full_name = first_name || ' ' || last_name;
+END;
+
+/* Create a few records in this table */
+INSERT INTO student(id, first_name, last_name) VALUES(1,'F1', 'L1');
+INSERT INTO student(id, first_name, last_name) VALUES(2,'F2', 'L2');
+INSERT INTO student(id, first_name, last_name) VALUES(3,'F3', 'L3');
+
+
+SHOW TRIGGERS LIKE 'stu%'\G;
+
+
+DROP TRIGGER student_name;
+
+======================================
+CREATE TABLE Employee (
+emp_id NUMBER PRIMARY KEY,
+emp_nameVARCHAR2(100),
+emp_salary NUMBER
+);
+-- Create Audit_Log table
+CREATE TABLE Audit_Log (
+log_id NUMBER PRIMARY KEY,
+table_nameVARCHAR2(100),
+activity_typeVARCHAR2(20),
+activity_date TIMESTAMP,
+user_idVARCHAR2(50)
+);
+CREATE SEQUENCE Audit_Log_Seq START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER Employee_Audit_Trigger
+AFTER INSERT OR UPDATE OR DELETE ON Employee
+FOR EACH ROW
+DECLARE
+v_activity_typeVARCHAR2(20);
+BEGIN
+    IF INSERTING THEN
+v_activity_type := 'INSERT';
+    ELSIF UPDATING THEN
+v_activity_type := 'UPDATE';
+    ELSIF DELETING THEN
+v_activity_type := 'DELETE';
+    END IF;
+    INSERT INTO Audit_Log (log_id, table_name, activity_type, activity_date, user_id)
+    VALUES (Audit_Log_Seq.NEXTVAL, 'Employee', v_activity_type, SYSTIMESTAMP, USER);
+END;
+============================
+
+CREATE TABLE EMP_SALARY_AUDIT
+( 
+  EMP_ID NUMBER
+  OPERATION VARCHAR2(100),
+  OLD_SAL NUMBER,
+  NEW_SAL NUMBER,
+  OP_DATE DATE,
+  BY_USER VARCHAR2(100)
+);
+
+create or replace trigger emp_copy_sal_audit
+after insert or update of salary or delete
+on copy_emp
+for each row
+begin
+  if inserting then
+  insert into EMP_SALARY_AUDIT(EMP_ID, OPERATION,OLD_SAL, NEW_SAL, OP_DATE, BY_USER)
+  values (:new.employee_id,'Inserting',null,:new.salary,sysdate,user);
+  end if;
+  
+  if updating then
+  insert into EMP_SALARY_AUDIT(EMP_ID,OPERATION,OLD_SAL,NEW_SAL,OP_DATE,BY_USER)
+  values (:old.employee_id,'updating',:old.salary,:new.salary,sysdate,user);
+  end if;
+
+  if deleting then
+  insert into EMP_SALARY_AUDIT(EMP_ID,OPERATION,OLD_SAL,NEW_SAL,OP_DATE,BY_USER)
+  values (:old.employee_id,'deleting',:old.salary,null,sysdate,user);
+  end if;
+end;
+
+
