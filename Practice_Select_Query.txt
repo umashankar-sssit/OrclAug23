@@ -1,0 +1,126 @@
+CREATE TABLE EMP
+       (emp_id  NUMBER(6) CONSTRAINT PK_EMP PRIMARY KEY,
+	emp_name VARCHAR2(10),
+	job_name VARCHAR2(9),
+	manager_id NUMBER(4),
+	hire_date DATE,
+	salary NUMBER(7,2),
+	commission NUMBER(7,2),
+	dep_id NUMBER(5));
+
+
+Sample Insert statement used to insert the data
+
+INSERT INTO EMP VALUES
+(68319,'KAYLING','PRESIDENT',null,to_date('1991-11-18','yyyy-mm-dd'),6000,NULL,1001);
+
+to_date is the Predefined date function in Oracle SQL to provide the date in own format
+In the above example, the Input date is in format Year-Month-Day which is given as a second param. to function
+
+
+Employee Table
+
+ emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id
+--------+----------+-----------+------------+------------+---------+------------+--------
+  68319 | KAYLING  | PRESIDENT |            | 1991-11-18 | 6000.00 |            |   1001
+  66928 | BLAZE    | MANAGER   |      68319 | 1991-05-01 | 2750.00 |            |   3001
+  67832 | CLARE    | MANAGER   |      68319 | 1991-06-09 | 2550.00 |            |   1001
+  65646 | JONAS    | MANAGER   |      68319 | 1991-04-02 | 2957.00 |            |   2001
+  67858 | SCARLET  | ANALYST   |      65646 | 1997-04-19 | 3100.00 |            |   2001
+  69062 | FRANK    | ANALYST   |      65646 | 1991-12-03 | 3100.00 |            |   2001
+  63679 | SANDRINE | CLERK     |      69062 | 1990-12-18 |  900.00 |            |   2001
+  64989 | ADELYN   | SALESMAN  |      66928 | 1991-02-20 | 1700.00 |     400.00 |   3001
+  65271 | WADE     | SALESMAN  |      66928 | 1991-02-22 | 1350.00 |     600.00 |   3001
+  66564 | MADDEN   | SALESMAN  |      66928 | 1991-09-28 | 1350.00 |    1500.00 |   3001
+  68454 | TUCKER   | SALESMAN  |      66928 | 1991-09-08 | 1600.00 |       0.00 |   3001
+  68736 | ADNRES   | CLERK     |      67858 | 1997-05-23 | 1200.00 |            |   2001
+  69000 | JULIUS   | CLERK     |      66928 | 1991-12-03 | 1050.00 |            |   3001
+  69324 | MARKER   | CLERK     |      67832 | 1992-01-23 | 1400.00 |            |   1001
+
+
+
+
+Queries:
+
+1. SQL Query to retrieve all employees information
+2. write a SQL query to find the salaries of all employees
+3. write a SQL query to find the unique designations of the employees.
+4. write a SQL query to list the employees’ name, increased their salary by 15%
+5. write a SQL query to list the employee's name and job name as a format of "Employee & Job"
+6. Write a query in SQL to produce the output of employees in the format : emp-name(job-name)
+7. write a SQL query to count the number of characters except the spaces for each employee name. --> Use length(trim(emp_name))
+8. write a SQL query to find the employee ID, salary, and commission of all the employees.
+9. write a SQL query to find the unique department with jobs
+   Solution: SELECT DISTINCT dep_id, job_name FROM employees ;
+10. write a SQL query to find those employees who do not belong to the department 2001.
+11. write a SQL query to calculate the average salary of employees who work as analysts.
+12. write a SQL query to find the details of the employee ‘BLAZE’
+13. write a SQL query to identify employees whose commissions exceed their salaries.
+14. write a SQL query to identify those employees whose salaries exceed 3000 after receiving a 25% salary increase.
+    Solution: SELECT * FROM employees WHERE (1.25*salary) > 3000;
+15. write a SQL query to find the names of the employees whose length is six --> Use length(trim(emp_name))
+16. write a SQL query to find those employees whose designation is ‘CLERK’
+17. write a SQL query to find those employees whose salaries are less than 3500
+18. write a SQL query to find the employee whose designation is ‘ANALYST’
+19. write a SQL query identify the employees who do not report to a manager --> Use manager_id IS NULL
+20. write a SQL query to identify the employees whose salaries are odd
+21.  write a SQL query to identify employees whose salaries contain only three digits
+22.  write a SQL query to find those employees who joined in the month of APRIL
+23. write a SQL query to identify those employees who have been working as a SALESMAN
+24. write a SQL query to find the employees who are working for the department ID 1001 or 2001
+25.  write a SQL query to find those employees of department id 3001 or 1001 and joined in the year 1991 
+                  --> Use pattern matching ex:hire_date like '1991%'
+26.  write a SQL query to find those employees whose designation is ‘CLERK’ and work in the department ID 2001
+27. write a query in SQL to find those employees where -
+	1. the employees receive some commission which should not be more than the salary and annual salary including commission is below 34000.
+	2. Designation is ‘SALESMAN’ and working in the department ‘3001’
+28.write a SQL query to find those employees who are either CLERK or MANAGER.
+29. write a SQL query to identify those employees who joined in any month other than February. --> use pattern matching
+30. write a SQL query to identify the employees who joined the company in June 1991
+31. write a SQL query to search for all employees with an annual salary between 24000 and 50000 (Begin and end values are included.)
+32. write a SQL query to find out which employees are working under the managers 63679, 68319, 66564, or 69000
+33. write a SQL query to find those employees who joined in 90's.
+34. write a SQL query to find those managers who are in the department 1001 or 2001
+35. write a SQL query to identify employees who joined in the month of FEBRUARY with a salary range of 1001 to 2000 (Begin and end values are included.)
+36. write a SQL query to identify those employees who earn 60000 or more per year or do not work as ANALYST.
+37. write a SQL query to find those employees whose manager name is JONAS.
+38. write a SQL query to find the name and salary of the employee FRANK
+39. write a SQL query to search for employees who are working either as a MANAGER or an ANALYST with a salary between 2000 and 5000 (Begin and end values are included.)
+40. write a SQL query to find those employees who joined after 1991, excluding MARKER or ADELYN in the departments 4001 or 2001.
+41. write a SQL query to find those employees who are either 'CLERK' or 'ANALYST’.
+42. write a SQL query to find those employees who earn less than 1000 salary
+43. write a SQL query to list the unique jobs of department 2001 and 3001
+44. write a SQL query to list all the employees except the PRESIDENT and the MANAGER 
+45.  write a SQL query to find the employees whose annual salary is less than 25,000 per year.
+ 
+
+
+
+
+
+Dates:
+1. write a SQL query to find those employees with hire date in the format like February 22, 1991
+   Solution: SELECT emp_id,emp_name,salary,to_char(hire_date,'MONTH DD,YYYY') FROM employees;
+
+2. write a SQL query to find those employees who joined before 1991
+   Solution: SELECT * FROM employees WHERE hire_date<('1991-1-1');
+
+3. write a SQL query to find out which employees joined in the month of January
+   Solution: SELECT * FROM employees WHERE to_char(hire_date, 'mon')='jan';
+
+4. write a SQL query to retreive the service in months and years of individual employee in the orgranization
+   Solution: SELECT emp_name,  months_between(CURRENT_DATE, hire_date) "Months" ,months_between(CURRENT_DATE, hire_date)/12 "Years" from employee
+
+5. write a SQL query to identify employees with more than 27 years of experience
+   Solution: SELECT * FROM employees WHERE months_between(CURRENT_DATE, hire_date)/12 > 27;
+
+6. write a SQL query to identify those employees who joined the company in 1991
+   Solution: SELECT * FROM employees WHERE to_char(hire_date,'YYYY') = '1991';
+
+7. write a SQL query to find those employees who joined before 1st April 1991
+8. write a SQL query to find the employees who joined on the 1st of May 1991
+9. write a SQL query to identify the experience of the employees who work under the manager whose ID number is 68319
+10. write a SQL query to find out which employees joined the company before the 19th of the month
+11. write a SQL query to identify those employees who have been working as a SALESMAN and month portion of the experience is more than 10.
+
+
