@@ -1,0 +1,10 @@
+create table customer(
+custid number(5),
+cname varchar2(10) not null,
+contact number(5),
+nationality varchar2(10) default 'Indian',
+custtype varchar2(3),
+dob date,
+constraint cu_cid_pk primary key(custid),
+constraint cu_ct_uni unique(contact),
+constraint cu_ctype_chk check(custtype IN ('SR','R')));

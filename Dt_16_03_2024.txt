@@ -1,0 +1,119 @@
+Write a PL-SQL Cursor to fetch the employees working as Salesman
+
+declare
+cursor salesmanlist is select ename from emp where job like 'SALESMAN';
+pename emp.ename%type;
+
+begin
+open salesmanlist;
+
+loop
+fetch salesmanlist into pename;
+exit when salesmanlist%notfound;
+dbms_output.put_line(pename);
+end loop;
+
+close salesmanlist;
+end;
+/
+
+
+
+Write a PL-SQL Cursor to fetch the complete employee information who working as Salesman
+
+declare
+cursor salesmanlist is select * from emp where job like 'SALESMAN';
+employee emp%rowtype;
+
+begin
+open salesmanlist;
+
+loop
+fetch salesmanlist into employee;
+exit when salesmanlist%notfound;
+dbms_output.put_line('----------------------------------');
+dbms_output.put_line(employee.ename);
+dbms_output.put_line(employee.job);
+dbms_output.put_line(employee.sal);
+end loop;
+
+close salesmanlist;
+end;
+/
+
+rewrite the above program using for loop
+
+declare
+cursor salesmanlist is select * from emp where job like 'SALESMAN';
+begin
+for employee in salesmanlist
+loop
+dbms_output.put_line('----------------------------------');
+dbms_output.put_line(employee.ename);
+dbms_output.put_line(employee.job);
+dbms_output.put_line(employee.sal);
+end loop;
+
+end;
+/
+
+
+
+create or replace procedure listofsalesmans
+is
+cursor salesmanlist is select * from emp where job like 'SALESMAN';
+begin
+for employee in salesmanlist
+loop
+dbms_output.put_line('----------------------------------');
+dbms_output.put_line(employee.ename);
+dbms_output.put_line(employee.job);
+dbms_output.put_line(employee.sal);
+end loop;
+end;
+/
+
+Parameterized cursors
+
+create or replace procedure emplistbyjob(pjob varchar2)
+is
+cursor salesmanlist(cpjob varchar2) is select * from emp where job like cpjob;
+begin
+for employee in salesmanlist(pjob)
+loop
+dbms_output.put_line('----------------------------------');
+dbms_output.put_line(employee.ename);
+dbms_output.put_line(employee.job);
+dbms_output.put_line(employee.sal);
+end loop;
+end;
+/
+
+
+call emplistbyjob('CLERK')
+call emplistbyjob('SALESMAN')
+
+
+create or replace procedure emplistbyjob(pjob varchar2)
+is
+begin
+for employee in (select * from emp where job like pjob)
+loop
+dbms_output.put_line('----------------------------------');
+dbms_output.put_line(employee.ename);
+dbms_output.put_line(employee.job);
+dbms_output.put_line(employee.sal);
+end loop;
+end;
+/
+
+
+
+
+
+https://github.com/umashankar-sssit
+
+
+
+
+

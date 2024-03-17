@@ -1,0 +1,82 @@
+
+PL-SQL procedure to display a welcome message
+
+create or replace procedure welcomemsg
+as
+begin
+dbms_output.put_line('Welcome');
+end;
+/
+
+How to execute or call the above procedure
+THREE Ways:
+1. using call
+	call welcomemsg();
+2. using exec 
+	exec welcomemsg;
+3. Using PL-SQL block
+begin
+welcomemsg();
+end;
+/
+
+
+create or replace function addition(num1 number,num2 number)
+return number
+as
+result number(5);
+begin
+result:=num1+num2;
+return result;
+end;
+/
+
+How to execute or call the above function
+ONE Ways:
+1. Using PL-SQL block
+declare
+num1 number(5);
+num2 number(5);
+res number(5);
+begin
+num1:=&num1;
+num2:=&num2;
+res:=addition(num1,num2);
+dbms_output.put_line(res);
+end;
+/
+
+
+
+
+
+
+Modes of Parameters to Procedure
+THREE Modes
+1. IN mode
+     INPUT to the procedure
+     procedure reads the value from variable
+     default mode
+2. OUT mode
+       OUTPUT from the procedure
+       procedure writes the result in this variable
+3. IN OUT mode
+       same variable is used to read the value as well as to write the value
+
+
+create or replace procedure resultbyid(phtno number,presult OUT varchar2)
+as
+begin
+select result into presult from student2 where htno=phtno;
+end;
+/
+
+declare
+phtno student2.htno%type;
+presult student2.result%type;
+begin
+phtno:=&phtno;
+resultbyid(phtno,presult);
+dbms_output.put_line(presult);
+end;
+/

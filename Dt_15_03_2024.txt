@@ -1,0 +1,53 @@
+create or replace procedure xcube(x IN OUT number)
+as
+begin
+x:=(x*x*x);
+end;
+/
+
+
+In order to call the above procedure, we must define a PL-SQL block
+
+declare
+val number(5);
+begin
+val:=&val;
+xcube(val);
+dbms_output.put_line('Cube is..' || val);
+end;
+/
+
+
+Functions
+
+Write a PL-SQL function that accepts the htno and retrieve the name of the student
+
+create or replace function namebyid(phtno number)
+return varchar2
+as
+psname student2.sname%type;
+begin
+select sname into psname from student2 where htno=phtno;
+return psname;
+exception
+when too_many_rows then
+dbms_output.put_line('Given HTNO returning more than one row');
+return null;
+when no_data_found then
+dbms_output.put_line('Given HTNO is invalid');
+return null;
+end;
+/
+
+
+PL-SQL block to call the above function
+declare
+phtno student2.htno%type;
+psname student2.sname%type;
+begin
+phtno:=&phtno;
+psname:=namebyid(phtno);
+dbms_output.put_line('Name is...' || psname);
+end;
+/
+

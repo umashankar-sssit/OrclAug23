@@ -1,0 +1,71 @@
+Loops
+
+1. while loop
+2. for loop
+3. exit when
+
+Write a PL-SQL block to display the numbers from 1 to 10
+
+declare
+cnt number(5):=1;
+begin
+while(cnt<=10) 
+loop
+dbms_output.put_line(cnt);
+cnt:=cnt+1;
+end loop;
+dbms_output.put_line('End..');
+end;
+/
+
+write a PL-SQL block to find the sum of even and odd numbers between 1 to 10.
+
+declare
+oddsum number(5):=0;
+evensum number(5):=0;
+
+begin
+
+for i in 1..10
+loop
+
+if i mod 2 = 0 then
+dbms_output.put_line(i || 'is even');
+evensum := evensum + i;
+else
+dbms_output.put_line(i || 'is odd');
+oddsum := oddsum + i;
+end if;
+end loop;
+dbms_output.put_line('Even sum..' || evensum);
+dbms_output.put_line('Odd sum..' || oddsum);
+end;
+/
+
+Write a PL-SQL block to display the numbers from 1..10 in reverse order
+
+begin
+for i in reverse 1..10
+loop
+dbms_output.put_line(i);
+end loop;
+end;
+/
+
+
+Write a PL-SQL block to display the 5th multiplication table
+
+declare
+cnt number(5):=1;
+
+begin
+
+loop
+exit when cnt>10;
+dbms_output.put_line('5 * ' || cnt || ' = ' || 5*cnt);
+cnt:=cnt+1;
+end loop;
+end;
+/
+
+

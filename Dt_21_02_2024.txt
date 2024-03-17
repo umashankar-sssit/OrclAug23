@@ -1,0 +1,8 @@
+create table transaction(
+txnid number(5),
+cid number(5),
+txntype char(1),
+txnamt number(5),
+constraint txn_tid_pk primary key(txnid),
+constraint txn_cid_fk_cust_cid foreign key(cid) references customer(custid),
+constraint txn_txntype_chk check (txntype IN ('C','D')));

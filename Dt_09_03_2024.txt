@@ -1,0 +1,59 @@
+declare
+num number(5);
+begin
+num:=&number;
+if (num mod 2 = 0) then
+dbms_output.put_line(num || ' is even');
+else
+dbms_output.put_line(num || ' is odd');
+end if;
+end;
+/
+
+
+declare
+avgm number(5);
+
+begin
+avgm:=&averagemarks;
+
+if(avgm>70) then
+dbms_output.put_line('Distinction');
+else
+if(avgm>=60 AND avgm<70) then
+dbms_output.put_line('First class');
+else
+if(avgm>=50 AND avgm<60) then
+dbms_output.put_line('Second class');
+else
+dbms_output.put_line('Third class');
+end if;
+end if;
+end if;
+end;
+/
+
+OR
+
+
+declare
+avgm number(5);
+
+begin
+avgm:=&averagemarks;
+
+if(avgm>70) then
+dbms_output.put_line('Distinction');
+elsif(avgm>=60 AND avgm<70) then
+dbms_output.put_line('First class');
+elsif(avgm>=50 AND avgm<60) then
+dbms_output.put_line('Second class');
+else
+dbms_output.put_line('Third class');
+end if;
+end;
+/
+
+
+
+

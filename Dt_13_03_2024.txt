@@ -1,0 +1,69 @@
+declare
+nr number(5);
+dr number(5);
+res number(5);
+
+begin
+nr:=&nr;
+dr:=&dr;
+res:=nr/dr;
+dbms_output.put_line('Result is...' || res);
+
+exception
+when zero_divide then 
+dbms_output.put_line('Dr should be > 0');
+end;
+/
+
+SQL program to get the result of the student from Id
+
+declare
+phtno student2.htno%type;
+presult student2.result%type;
+begin
+phtno:=&phtno;
+select result into presult from student2 where htno=phtno;
+dbms_output.put_line('Result is....' || presult);
+exception
+when no_data_found then
+dbms_output.put_line('Htno is invalid');
+end;
+/
+
+
+
+SQL program to get the name of the student from htno
+
+
+declare
+phtno student2.htno%type;
+psname student2.sname%type;
+begin
+phtno:=&phtno;
+select sname into psname from student2 where htno=phtno;
+dbms_output.put_line('Name is....' || psname);
+exception
+when no_data_found then
+dbms_output.put_line('Htno is invalid');
+when too_many_rows then
+dbms_output.put_line('Htno is available in more than one record');
+end;
+/
+
+
+
+declare
+ a number:=&a;
+ numexception exception; 
+ begin
+ if(a=10) then
+ dbms_output.put_line('it is positive');
+ end if;
+ if (a=0) then
+ raise numexception;
+ end if;
+ exception
+ when numexception then
+  dbms_output.put_line('a is zero');
+ end;
+

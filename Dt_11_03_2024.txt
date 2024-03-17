@@ -1,0 +1,87 @@
+case...when....
+===============
+declare
+avgm number(5);
+begin
+avgm:=&avgm;
+case
+when avgm>=70 then dbms_output.put_line('Distinction');
+when avgm>=60 AND avgm<70 then dbms_output.put_line('First class');
+when avgm>=50 AND avgm<60 then dbms_output.put_line('Second class');
+else dbms_output.put_line('Third class');
+end case;
+end;
+/
+
+
+
+create table student2(
+htno number(5),
+sname varchar2(10),
+m1 number(3),
+m2 number(3),
+total number(4),
+avgm number(3),
+result varchar2(5),
+class varchar2(10));
+
+
+
+
+declare
+phtno student2.htno%type;
+psname student2.sname%type;
+pm1 student2.m1%type;
+pm2 student2.m2%type;
+ptotal student2.total%type;
+pavgm student2.avgm%type;
+presult student2.result%type;
+pclass student2.class%type;
+begin
+phtno:=&phtno;
+psname:='&psname';
+pm1:=&pm1;
+pm2:=&pm2;
+
+ptotal:=pm1+pm2;
+pavgm:=ptotal/2;
+
+if(pm1>35 ANd pm2>35) then
+presult:='pass';
+case
+when pavgm>=70 then pclass:='Dist';
+when pavgm>=60 AND pavgm<70 then pclass:='First';
+when pavgm>=50 AND pavgm<60 then pclass:='Second';
+else pclass:='Third';
+end case;
+else
+presult:='fail';
+pclass:=null;
+end if;
+
+insert into student2 values(phtno,psname,pm1,pm2,ptotal,pavgm,presult,pclass);
+
+dbms_output.put_line('Inserted successfully...');
+end;
+/
+
+PL-SQL program that accepts the htno and get the result and sname of the student.
+
+declare
+phtno student2.htno%type;
+psname student2.sname%type;
+presult student2.result%type;
+
+begin
+phtno:=&phtno;
+
+select sname,result INTO psname,presult from student2 where htno=phtno;
+dbms_output.put_line('Student Name...' || psname);
+dbms_output.put_line('Student Result...' || presult);
+end;
+/
+
+
+
+
+
